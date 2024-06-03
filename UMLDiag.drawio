@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-06-03T09:14:57.023Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="fKG_2XILAIlza36Si9uB" version="24.4.13" type="device">
+<mxfile host="app.diagrams.net" modified="2024-06-03T09:16:10.831Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="Tz2_CxyBPRr_gtRVKu91" version="24.4.13" type="device">
   <diagram name="Page-1" id="ckWOzo5wXRxlPBgAqUoa">
     <mxGraphModel dx="989" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -174,6 +174,9 @@
             <mxPoint x="590" y="300" as="sourcePoint" />
             <mxPoint x="567" y="341" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="Dxd0e1iavXf7KEonMfmZ-33" value="Local SDI" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="285" width="80" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
