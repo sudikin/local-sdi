@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example.wps</groupId>
+  <artifactId>wps-demo</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>wps-demo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <geoserver.version>2.22.5</geoserver.version>
+    <geotools.version>28.5</geotools.version>
+    <jts.version>1.16.1</jts.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-process</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-process-geometry</artifactId>
+      <version>${geotools.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.locationtech.jts</groupId>
+        <artifactId>jts-core</artifactId>
+        <version>1.18.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.locationtech.jts</groupId>
+        <artifactId>jts-core</artifactId>
+        <version>${jts.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+     <plugins>
+       <plugin>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <configuration>
+           <source>1.8</source>
+           <target>1.8</target>
+         </configuration>
+      </plugin>
+    </plugins>
+   </build>
+
+    <repositories>
+        <repository>
+            <id>boundless</id>
+            <name>Boundless Maven Repository</name>
+            <url>https://repo.boundlessgeo.com/main</url>
+        </repository>
+        <repository>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+        <repository>
+            <id>locationtech-releases</id>
+            <url>https://repo.eclipse.org/content/groups/releases</url>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </repository>
+          <repository>
+            <id>jts-snapshots</id>
+            <url>https://repo.eclipse.org/content/repositories/jts-snapshots</url>
+            <releases>
+              <enabled>false</enabled>
+            </releases>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </repository>
+    </repositories>
+  
+</project>
