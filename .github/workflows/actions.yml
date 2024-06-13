@@ -1,0 +1,68 @@
+name: Build and Push Artifact
+
+on:
+  push:
+    branches:
+      - wps
+    paths:
+      - '**/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+
+      - name: Determine changed folder
+        id: changes
+        run: |
+          FOLDER=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep / | cut -d/ -f1 | sort -u | tail -1)
+          echo "CHANGED_FOLDER=$FOLDER" >> $GITHUB_ENV
+
+      - name: Build with Maven
+        run: mvn clean install
+        working-directory: ${{ env.CHANGED_FOLDER }}
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: ${{ env.CHANGED_FOLDER }}/target/*.jar
+
+      - name: Get last commit info
+        id: last_commit
+        run: |
+          LAST_COMMIT_SHA=$(git log -1 --pretty=format:'%H')
+          LAST_COMMIT_AUTHOR_NAME=$(git log -1 --pretty=format:'%an')
+          LAST_COMMIT_AUTHOR_EMAIL=$(git log -1 --pretty=format:'%ae')
+          echo "LAST_COMMIT_SHA=$LAST_COMMIT_SHA" >> $GITHUB_ENV
+          echo "LAST_COMMIT_AUTHOR_NAME=$LAST_COMMIT_AUTHOR_NAME" >> $GITHUB_ENV
+          echo "LAST_COMMIT_AUTHOR_EMAIL=$LAST_COMMIT_AUTHOR_EMAIL" >> $GITHUB_ENV
+
+      - name: Checkout target branch
+        uses: actions/checkout@v2
+        with:
+          ref: wps
+
+      - name: Copy artifact to repo
+        run: |
+          mkdir -p build-artifacts/${{ env.CHANGED_FOLDER }}
+          cp ${{ env.CHANGED_FOLDER }}/target/*.jar build-artifacts/${{ env.CHANGED_FOLDER }}/
+
+      - name: Commit and push build artifacts
+        run: |
+          git config --global user.name "${{ env.LAST_COMMIT_AUTHOR_NAME }}"
+          git config --global user.email "${{ env.LAST_COMMIT_AUTHOR_EMAIL }}"
+          git add build-artifacts/${{ env.CHANGED_FOLDER }}/*.jar
+          git commit -m "Add build artifact for ${{ env.CHANGED_FOLDER }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
